@@ -9,8 +9,8 @@ func main() {
 	// 測試 MyProduct 函數
 	// result := MyProduct([]int{2, 1, 5, 9})
 	// fmt.Println(result) // 輸出：[45 90 18 10]
-	result := product.MyProduct2([]int{2, 1, 5, 9})
-	// result := product.MyProduct([]int{0, 0, 5, 9})
+	// result := product.MyProduct2([]int{2, 1, 5, 9})
+	result := product.MyProduct([]int{2, 1, 5, 9})
 	fmt.Println("result", result)
 }
 

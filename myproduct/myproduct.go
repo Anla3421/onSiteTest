@@ -21,19 +21,18 @@ import "fmt"
 // 可以處理input帶有0的slice，雖可以一套func做完(即不需要額外寫遇到0要怎麼辦)，但實作邏輯上比較複雜
 // 空間複雜度應有符合要求
 func MyProduct(nums []int) []int {
-	refSlice := make([]int, len(nums))
-	total := 0
-	// 獲取長度的加總的數量（如1+2+3+4+...)
-	for i := 1; i <= len(nums); i++ {
-		total += i
-	}
+	lengthOfInput := len(nums)
+	refSlice := make([]int, lengthOfInput)
+
+	// 獲取input長度的加總的數量（如1+2+3+4+...)，用三角形面積公式計算
+	total := lengthOfInput * (lengthOfInput + 1) / 2
 	// 建立一個新slice用以儲存位置跟總數的差值（refSlice:=[9,8,7,6])
-	for i := 1; i <= len(nums); i++ {
+	for i := 1; i <= lengthOfInput; i++ {
 		refSlice[i-1] = total - i
 	}
 
-	b := make([]int, len(nums))
-	for i := 0; i <= len(nums)-1; i++ {
+	b := make([]int, lengthOfInput)
+	for i := 0; i < lengthOfInput; i++ {
 		needToTime := 1
 		for index, v := range nums {
 			// 如果b現在要計算的index+1跟c[index]它加起來等於10(total)，
@@ -52,7 +51,8 @@ func MyProduct(nums []int) []int {
 // 把input slince全部乘起來再除掉要填入的該index的數字後變成b[index]即完成
 // 雖然實作邏輯上比較單純，但需要額外處理slice內有0的情況
 func MyProduct2(nums []int) []int {
-	b := make([]int, len(nums))
+	lengthOfInput := len(nums)
+	b := make([]int, lengthOfInput)
 	total := 1
 	zeroCount := []int{}
 	for k, v := range nums {
@@ -66,13 +66,13 @@ func MyProduct2(nums []int) []int {
 	// 針對input slice有不同的0的數量來處理對應的情況
 	switch len(zeroCount) {
 	case 0:
-		for i := 0; i <= len(nums)-1; i++ {
+		for i := 0; i < lengthOfInput; i++ {
 			b[i] = total / nums[i]
 		}
 	// 有一個0，除了該index的value以外，都是0
 	case 1:
 		zeroIndex := zeroCount[0]
-		for i := 0; i <= len(nums)-1; i++ {
+		for i := 0; i < lengthOfInput; i++ {
 			if i == zeroIndex {
 				b[i] = total
 				continue
